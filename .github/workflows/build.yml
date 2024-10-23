@@ -13,9 +13,9 @@ jobs:
         image: flyway/flyway
     environment: 'build' 
     env:
-      userName: ${{ secrets.USERNAME }}
-      password: ${{ secrets.PASSWORD }}
-      jdbc: ${{ secrets.JDBC_URL }}
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      JDBC: ${{ secrets.JDBC_URL }}
       
       displayName: 'Build'
  
@@ -24,7 +24,7 @@ jobs:
 
       # Runs the Flyway Clean command against the Build database
       - name: Clean Build DB
-        run: flyway info clean info -flywayServicePublish.publishReport=true -reportEnabled=true -email="${{ env.EMAIL }}" -token="${{ env.TOKEN }}" -baselineOnMigrate="true"  -locations="filesystem:${{ GITHUB.WORKSPACE }}/migrations" -environment=build -environments.build.url="${{ env.JDBC }}" -environments.build.user="${{ env.userName }}" -environments.build.password="${{ env.password }}" -cleanDisabled="false" 
+        run: flyway info clean info -baselineOnMigrate="true"  -locations="filesystem:${{ GITHUB.WORKSPACE }}/migrations" -environment=build -environments.build.url="${{ env.JDBC }}" -environments.build.user="${{ env.USERNAME }}" -environments.build.password="${{ env.PASSWORD }}" -cleanDisabled="false" 
         
         
         # Runs the Flyway Migrate command against the Build database
