@@ -1,0 +1,3 @@
+CREATE TABLE FOO (
+    ID INT NOT NULL
+);

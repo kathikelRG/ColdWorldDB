@@ -1,0 +1,33 @@
+databaseType = "Snowflake"
+id = "81aa8d9f-6ec5-43b9-9227-19a68be1d836"
+name = "ColdWorldDB"
+
+[flyway]
+locations = [ "filesystem:migrations" ]
+mixed = true
+outOfOrder = true
+schemaModelLocation = "schema-model"
+validateMigrationNaming = true
+
+  [flyway.check]
+  majorTolerance = 0
+
+[flywayDesktop]
+developmentEnvironment = "development"
+schemaModel = "schema-model"
+shadowEnvironment = "shadow"
+
+[redgateCompare]
+filterFile = "filter.rgf"
+
+[environments.Prod]
+url = "jdbc:snowflake://rv88946.west-europe.azure.snowflakecomputing.com/?warehouse=COMPUTE_WH&role=SYSADMIN&authenticator=snowflake&db=COLDWORLDDB&jdbc_query_result_format=json"
+displayName = "ColdWorldDB"
+
+[environments.Build]
+url = "jdbc:snowflake://rv88946.west-europe.azure.snowflakecomputing.com/?warehouse=COMPUTE_WH&role=SYSADMIN&authenticator=snowflake&db=COLDWORLDDB_BUILD&jdbc_query_result_format=json"
+displayName = "ColdWorldDB_Build"
+
+[environments.Test]
+url = "jdbc:snowflake://rv88946.west-europe.azure.snowflakecomputing.com/?warehouse=COMPUTE_WH&role=SYSADMIN&authenticator=snowflake&db=COLDWORLDDB_TEST&jdbc_query_result_format=json"
+displayName = "ColdWorldDB_Test"
