@@ -24,10 +24,13 @@ filterFile = "filter.rgf"
 url = "jdbc:snowflake://rv88946.west-europe.azure.snowflakecomputing.com/?warehouse=COMPUTE_WH&role=SYSADMIN&authenticator=snowflake&db=COLDWORLDDB&jdbc_query_result_format=json"
 displayName = "ColdWorldDB"
 
+
 [environments.Build]
 url = "jdbc:snowflake://rv88946.west-europe.azure.snowflakecomputing.com/?warehouse=COMPUTE_WH&role=SYSADMIN&authenticator=snowflake&db=COLDWORLDDB_BUILD&jdbc_query_result_format=json"
 displayName = "ColdWorldDB_Build"
 
+
 [environments.Test]
 url = "jdbc:snowflake://rv88946.west-europe.azure.snowflakecomputing.com/?warehouse=COMPUTE_WH&role=SYSADMIN&authenticator=snowflake&db=COLDWORLDDB_TEST&jdbc_query_result_format=json"
 displayName = "ColdWorldDB_Test"
+
