@@ -1,0 +1,38 @@
+
+name: deployToBuild
+ 
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+ 
+jobs:
+  build:
+    name: Deploy Build
+    runs-on: ubuntu-latest
+    container: 
+        image: flyway/flyway
+    environment: 'build' 
+    env:
+      userName: ${{ secrets.USERNAME }}
+      password: ${{ secrets.PASSWORD }}
+      jdbc: ${{ secrets.JDBC_URL }}
+      
+      displayName: 'Build'
+ 
+    steps:
+      - uses: actions/checkout@v4
+
+      # Runs the Flyway Clean command against the Build database
+      - name: Clean Build DB
+        if: env.executeBuild == 'true'
+        run: |
+         flyway info clean info -flywayServicePublish.publishReport=true -reportEnabled=true -email="${{ env.EMAIL }}" -token="${{ env.TOKEN }}" -baselineOnMigrate="true"  -locations="filesystem:${{ GITHUB.WORKSPACE }}/migrations" -environment=build -environments.build.url="${{ env.JDBC }}" -environments.build.user="${{ env.userName }}" -environments.build.password="${{ env.password }}" -cleanDisabled="false" 
+        
+        
+        # Runs the Flyway Migrate command against the Build database
+      - name: Migrate Build DB
+        if: env.executeBuild == 'true'
+
+        run: |
+         flyway info migrate info -environment=build -environments.build.user="${{ env.userName }}" -environments.build.password="${{ env.password }}" -baselineOnMigrate="true"   -locations="filesystem:${{ GITHUB.WORKSPACE }}/migrations"  -environments.build.url="${{ env.JDBC }}" -cleanDisabled="false"
+    
