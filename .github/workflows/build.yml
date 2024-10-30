@@ -2,8 +2,16 @@
 name: deployToBuild
  
 # Controls when the workflow will run
+#on:
+ # workflow_dispatch:
+
 on:
-  workflow_dispatch:
+    push:
+      branches:
+        - develop
+      paths:
+        - 'migrations/**.sql' 
+ 
  
 jobs:
   build:
