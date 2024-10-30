@@ -1,1 +1,29 @@
---
+
+name: deployToProduction
+ 
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+ 
+jobs:
+  test:
+    name: Deploy Test
+    runs-on: ubuntu-latest
+    container: 
+        image: flyway/flyway
+    environment: 'test' 
+    env:
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      JDBC: ${{ secrets.JDBC_URL }}
+      
+      displayName: 'Test'
+ 
+    steps:
+      - uses: actions/checkout@v4
+
+        
+      # Runs the Flyway Migrate command against the Test database
+      - name: Migrate test DB
+        run: flyway info migrate info  -environment=test -environments.test.user="${{ env.USERNAME }}" -environments.test.password="${{ env.PASSWORD }}" -baselineOnMigrate="true"   -environments.test.url="${{ env.JDBC }}" 
+    
