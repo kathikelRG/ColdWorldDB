@@ -27,3 +27,23 @@ jobs:
       - name: Migrate test DB
         run: flyway info migrate info  -environment=test -environments.test.user="${{ env.USERNAME }}" -environments.test.password="${{ env.PASSWORD }}" -baselineOnMigrate="true"   -environments.test.url="${{ env.JDBC }}" 
     
+  prod:
+   name: Deploy Prod
+   runs-on: ubuntu-latest
+   container: 
+       image: flyway/flyway
+   environment: 'prod'
+   env:
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      JDBC: ${{ secrets.JDBC_URL }}
+      displayName: 'Prod'
+   steps:
+   - uses: actions/checkout@v4
+   # Runs the Flyway Migrate command against the Test database
+   - name: Migrate test DB
+     run: flyway info migrate info  -environment=prod -environments.prod.user="${{ env.USERNAME }}" -environments.prod.password="${{ env.PASSWORD }}" -baselineOnMigrate="true"   -environments.prod.url="${{ env.JDBC }}" 
+
+   
+   
+  
