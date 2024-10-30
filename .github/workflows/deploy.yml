@@ -29,6 +29,7 @@ jobs:
     
   prod:
    name: Deploy Prod
+   needs: test
    runs-on: ubuntu-latest
    container: 
        image: flyway/flyway
