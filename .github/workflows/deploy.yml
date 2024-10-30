@@ -37,7 +37,7 @@ jobs:
    env:
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
-      JDBC: ${{ secrets.JDBC_URL }}
+      JDBC: ${{ vars.test }}
       displayName: 'Prod'
    steps:
    - uses: actions/checkout@v4
