@@ -41,6 +41,8 @@ jobs:
       displayName: 'Prod'
    steps:
    - uses: actions/checkout@v4
+   - name: testing
+     run: echo ${{ vars.testing }}
    # Runs the Flyway Migrate command against the Test database
    - name: Migrate prod DB
      run: flyway info migrate info  -environment=prod -environments.prod.user="${{ env.USERNAME }}" -environments.prod.password="${{ env.PASSWORD }}" -baselineOnMigrate="true"   -environments.prod.url="${{ env.JDBC }}" 
